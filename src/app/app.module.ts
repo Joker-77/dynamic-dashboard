@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,9 +14,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { UsersComponent } from './users/users.component';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SideBarComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    SideBarComponent,
+    UsersComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,6 +37,9 @@ import { UsersComponent } from './users/users.component';
     MatIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatCardModule,
+    MatGridListModule,
+    LoadingBarHttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

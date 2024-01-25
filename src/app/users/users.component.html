@@ -1,1 +1,22 @@
-<p>users works!</p>
+<div class="users-cards" style="padding: 2em">
+  <mat-grid-list class="users" cols="4" rowHeight="2:1" [gutterSize]="'15px'">
+    <mat-grid-tile style="margin: 0 0.1em">
+      <mat-card>
+        <mat-card-content>
+          <div class="media">
+            <img
+              mat-card-md-image
+              src="../../assets/images/user.png"
+              width="50"
+              height="50"
+            />
+          </div>
+          <div class="info">
+            <!-- <mat-card-title>User</mat-card-title>
+            <mat-card-subtitle>SubUser</mat-card-subtitle> -->
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
