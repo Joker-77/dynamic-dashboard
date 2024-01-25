@@ -12,9 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, SideBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
