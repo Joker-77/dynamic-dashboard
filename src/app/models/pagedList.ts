@@ -1,6 +1,5 @@
-import { IUser } from './user';
-export interface IPagedList {
-  data: IUser[];
+export interface IPagedList<TData> {
+  data: TData[];
   page: number;
   per_page: number;
   total: number;

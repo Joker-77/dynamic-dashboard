@@ -13,9 +13,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SideBarComponent],
+  declarations: [AppComponent, HeaderComponent, SideBarComponent, UsersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,6 +29,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     MatInputModule,
     MatIconModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

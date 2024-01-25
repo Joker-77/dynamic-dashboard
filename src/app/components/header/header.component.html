@@ -1,56 +1,52 @@
-<div
-  class="page-top clearfix ng-isolate-scope scrolled"
-  scroll-position="scrolled"
-  max-height="50"
-  ng-class="{ scrolled: scrolled }"
-  style=""
->
-  <a href="#/dashboard" class="user-logo clearfix"
-    ><span>Dynamic User</span>Dashboard</a
+<header id="header">
+  <div
+    class="page-top clearfix ng-isolate-scope scrolled"
+    scroll-position="scrolled"
+    max-height="50"
+    ng-class="{ scrolled: scrolled }"
+    style=""
   >
-  <a href="#" class="collapse-menu-link" ba-sidebar-toggle-menu="">
-    <mat-icon>menu</mat-icon>
-  </a>
-  <div class="search">
-    <mat-icon class="search-icon">search</mat-icon>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Search</mat-label>
-      <input matInput placeholder="Type a word..." />
-    </mat-form-field>
-  </div>
-  <div class="headers">
-    <mat-list>
-      <mat-list-item>
-        <a class="header-link home" href="#">
-          <mat-icon style="margin: 0 5px">home</mat-icon>
-          <span style="margin: 2px 0">Home</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item>
-        <a class="header-link users" href="#">
+    <a href="#/dashboard" class="user-logo clearfix"
+      ><span>Dynamic User</span>Dashboard</a
+    >
+    <a href="#" class="collapse-menu-link" ba-sidebar-toggle-menu="">
+      <mat-icon>menu</mat-icon>
+    </a>
+    <div class="search">
+      <mat-icon class="search-icon">search</mat-icon>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Type a word..." />
+      </mat-form-field>
+    </div>
+    <div class="headers">
+      <mat-list>
+        <mat-list-item *ngFor="let page of pages; let i = index">
+          <a class="header-link {{ page.icon }}" href="{{ page.link }}">
+            <mat-icon style="margin: 0 5px">{{ page.icon }}</mat-icon>
+            <span style="margin: 2px 0">{{ page.name }}</span>
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="profile">
+      <img
+        class="user-profile-img"
+        src="../../../assets/images/user.png"
+        width="50"
+        height="50"
+        [matMenuTriggerFor]="menu"
+      />
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
           <mat-icon>person</mat-icon>
-          <span style="margin: 2px 0">Users</span></a
-        >
-      </mat-list-item>
-    </mat-list>
+          Profile
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
+      </mat-menu>
+    </div>
   </div>
-  <div class="profile">
-    <img
-      class="user-profile-img"
-      src="../../../assets/images/user.png"
-      width="50"
-      height="50"
-      [matMenuTriggerFor]="menu"
-    />
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>person</mat-icon>
-        Profile
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        Settings
-      </button>
-    </mat-menu>
-  </div>
-</div>
+</header>
