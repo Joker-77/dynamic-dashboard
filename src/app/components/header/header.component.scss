@@ -1,0 +1,107 @@
+.page-top {
+  display: flex;
+  background-color: #1c2b36;
+  position: fixed;
+  z-index: 904;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
+  height: 66px;
+  width: 100%;
+  min-width: 320px;
+  //   padding: 0 32px 0 40px;
+}
+a.user-logo {
+  color: #fff;
+  display: block;
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+  white-space: nowrap;
+  float: left;
+  outline: 0 !important;
+  line-height: 60px;
+  text-decoration: none;
+}
+
+a.user-logo span {
+  color: #209e91;
+  margin: 0 0.2em;
+}
+a.collapse-menu-link {
+  font-size: 31px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  line-height: 42px;
+  color: #fff;
+  padding: 0;
+  float: left;
+  margin: 11px 0 0 25px;
+}
+a.collapse-menu-link .mat-icon {
+  font-size: 1em;
+}
+a.collapse-menu-link .mat-icon:hover {
+  color: orange;
+}
+
+.full-width {
+  width: 30em;
+}
+.search {
+  color: #fff;
+  overflow: hidden;
+  text-shadow: none;
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 25px;
+  transition: all 0.5s ease;
+  float: left;
+  margin: 10px 0 0 30px;
+}
+.search input {
+  text-indent: 15px !important;
+}
+.search-icon {
+  position: relative;
+  left: 25px;
+}
+
+::ng-deep .mat-form-field {
+  .mat-form-field-label {
+    left: 1.5em;
+  }
+}
+
+::ng-deep .mat-menu-panel {
+  background-color: #1c2b36 !important;
+}
+
+.mat-list-base {
+  display: flex;
+  width: 40%;
+  float: right;
+}
+
+.headers {
+  width: 50%;
+  position: relative;
+  float: right;
+}
+
+.header-link {
+  display: flex;
+  text-decoration: none;
+  color: white;
+}
+
+.header-link:hover {
+  color: orange;
+}
+.profile {
+  float: right;
+}
+.user-profile-img {
+  cursor: pointer;
+  background-color: wheat;
+  border-radius: 5em;
+  margin-top: 5px;
+}
