@@ -1,22 +1,38 @@
-<div class="users-cards" style="padding: 2em">
-  <mat-grid-list class="users" cols="4" rowHeight="2:1" [gutterSize]="'15px'">
-    <mat-grid-tile style="margin: 0 0.1em">
-      <mat-card>
+<div class="loader" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="users-cards" *ngIf="!notFound && !loading" style="padding: 2em">
+  <mat-grid-list class="users" cols="3" rowHeight="2:1" [gutterSize]="'15px'">
+    <mat-grid-tile *ngFor="let user of users; let i = index">
+      <mat-card (click)="goDetails(user.id)">
         <mat-card-content>
           <div class="media">
-            <img
-              mat-card-md-image
-              src="../../assets/images/user.png"
-              width="50"
-              height="50"
-            />
+            <img mat-card-md-image [src]="user.avatar" width="50" height="50" />
           </div>
-          <div class="info">
-            <!-- <mat-card-title>User</mat-card-title>
-            <mat-card-subtitle>SubUser</mat-card-subtitle> -->
-          </div>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-card-title
+            >{{ user.first_name }} {{ user.last_name }}</mat-card-title
+          >
+        </mat-card-content>
+        <mat-card-content>
+          <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-paginator
+    #paginator
+    [length]="total"
+    [pageIndex]="page"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[6]"
+    aria-label="Select page"
+    (page)="paginate($event)"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>
+<div class="no-result" *ngIf="notFound && !loading">
+  <img src="../../assets/images/no-result-found.png" alt="" />
 </div>

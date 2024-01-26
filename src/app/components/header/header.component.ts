@@ -15,10 +15,10 @@ export class HeaderComponent implements OnInit {
     { name: 'Users', link: 'users', icon: 'person' },
   ];
   ngOnInit(): void {
-    this.userService.get(1).subscribe((resp) => {
-      console.clear();
-      console.log(resp);
-    });
+    // this.userService.get(1).subscribe((resp) => {
+    //   console.clear();
+    //   console.log(resp);
+    // });
   }
 
   navigate(page: Page) {

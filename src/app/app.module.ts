@@ -17,6 +17,9 @@ import { UsersComponent } from './users/users.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SingleUserComponent } from './single-user/single-user.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HeaderComponent,
     SideBarComponent,
     UsersComponent,
+    SingleUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HttpClientModule,
     MatCardModule,
     MatGridListModule,
+    MatPaginatorModule,
     LoadingBarHttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

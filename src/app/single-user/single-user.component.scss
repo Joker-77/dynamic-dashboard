@@ -1,13 +1,14 @@
 mat-card {
+  display: grid;
   box-shadow: 0px 0px 5px 5px lightblue;
-  height: 90%;
-  width: 70%;
-  padding: 1em;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #1c2b36;
-  cursor: pointer;
 }
-.mat-card:hover {
-  background-image: linear-gradient(180deg, orange, #1c2b36);
+.single-user {
+  display: flex;
+  justify-content: center;
 }
 .mat-card-content {
   display: flex;
@@ -23,20 +24,11 @@ mat-card {
 .mat-card-subtitle {
   text-align: center;
 }
-.mat-paginator {
-  background-color: #1c2b36;
+.mat-raised-button {
+  margin: 0 auto;
 }
-
-.users {
-  margin: 0.5em 0;
-}
-.user-info {
-  display: block;
-}
-.no-result {
-  margin-top: 5%;
-  display: flex;
-  justify-content: center;
+.mat-raised-button:hover {
+  background-color: orange;
 }
 .loader {
   display: flex;

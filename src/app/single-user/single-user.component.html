@@ -1,0 +1,24 @@
+<div class="loader" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="user-card" *ngIf="!notFound && !loading" style="padding: 2em">
+  <mat-card *ngIf="!notFound">
+    <mat-card-content>
+      <div class="media">
+        <img mat-card-md-image [src]="user.avatar" width="50" height="50" />
+      </div>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-card-title
+        >{{ user.first_name }} {{ user.last_name }}</mat-card-title
+      >
+    </mat-card-content>
+    <mat-card-content>
+      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+    </mat-card-content>
+    <button mat-raised-button (click)="back()">Back to list</button>
+  </mat-card>
+  <div class="no-result" *ngIf="notFound && !loading">
+    <img src="../../assets/images/no-result-found.png" alt="" />
+  </div>
+</div>

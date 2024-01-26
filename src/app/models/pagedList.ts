@@ -4,4 +4,5 @@ export interface IPagedList<TData> {
   per_page: number;
   total: number;
   total_pages: number;
+  support: { url: string; text: string };
 }
