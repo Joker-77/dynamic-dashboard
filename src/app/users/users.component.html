@@ -21,18 +21,19 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-paginator
-    #paginator
-    [length]="total"
-    [pageIndex]="page"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[6]"
-    aria-label="Select page"
-    (page)="paginate($event)"
-    showFirstLastButtons
-  >
-  </mat-paginator>
 </div>
+<mat-paginator
+  *ngIf="!notFound"
+  #paginator
+  [length]="total"
+  [pageIndex]="page"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[6]"
+  aria-label="Select page"
+  (page)="paginate($event)"
+  showFirstLastButtons
+>
+</mat-paginator>
 <div class="no-result" *ngIf="notFound && !loading">
   <img src="../../assets/images/no-result-found.png" alt="" />
 </div>

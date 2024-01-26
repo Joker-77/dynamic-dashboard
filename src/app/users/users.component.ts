@@ -42,9 +42,11 @@ export class UsersComponent implements OnInit {
   }
 
   paginate(event: PageEvent) {
+    this.loading = true;
     this.userService
       .getAll(event.pageIndex + 1)
       .subscribe((resp: IPagedList<IUser>) => {
+        this.loading = false;
         this.users = resp.data;
         this.page = resp.page - 1;
         this.pageSize = resp.per_page;
