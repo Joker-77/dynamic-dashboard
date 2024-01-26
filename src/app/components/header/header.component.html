@@ -16,7 +16,11 @@
       <mat-icon class="search-icon">search</mat-icon>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Search</mat-label>
-        <input matInput placeholder="Type a word..." />
+        <input
+          (change)="search($event)"
+          matInput
+          placeholder="Type a word..."
+        />
       </mat-form-field>
     </div>
     <div class="headers">

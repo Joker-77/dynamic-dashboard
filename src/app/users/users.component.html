@@ -3,7 +3,7 @@
 </div>
 <div class="users-cards" *ngIf="!notFound && !loading" style="padding: 2em">
   <mat-grid-list class="users" cols="3" rowHeight="2:1" [gutterSize]="'15px'">
-    <mat-grid-tile *ngFor="let user of users; let i = index">
+    <mat-grid-tile *ngFor="let user of filteredUsers; let i = index">
       <mat-card (click)="goDetails(user.id)">
         <mat-card-content>
           <div class="media">

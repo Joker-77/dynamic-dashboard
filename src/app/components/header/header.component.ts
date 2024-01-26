@@ -4,6 +4,7 @@ import { Router, RoutesRecognized, ActivatedRoute } from '@angular/router';
 import { Page } from '../../models/page';
 import { IUrlSegment } from '../../models/urlSegment';
 import { ActiveLinkServiceService } from '../../services/active-link-service.service';
+import { SearchUserService } from '../../services/search-user.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService: UsersService,
-    private activeLinkService: ActiveLinkServiceService
+    private activeLinkService: ActiveLinkServiceService,
+    private searchService: SearchUserService
   ) {}
   public pages: Page[] = [
     { name: 'Home', active: '', link: '', icon: 'home' },
@@ -33,5 +35,9 @@ export class HeaderComponent implements OnInit {
 
   navigate(page: Page) {
     this.router.navigate([page.link], { queryParamsHandling: 'preserve' });
+  }
+
+  search($event: Event) {
+    this.searchService.setSearch(($event.target as HTMLInputElement).value);
   }
 }
