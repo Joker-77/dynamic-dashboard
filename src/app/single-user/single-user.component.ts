@@ -15,13 +15,13 @@ export class SingleUserComponent implements OnInit {
   notFound: boolean = true;
   constructor(
     private router: Router,
-    private activateRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private userService: UsersService
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.activateRoute.paramMap.subscribe((paramMap) => {
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
       this.id = parseInt(paramMap.get('id')!);
       this.userService.get(this.id).subscribe((resp) => {
         this.loading = false;

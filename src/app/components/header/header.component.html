@@ -22,7 +22,13 @@
     <div class="headers">
       <mat-list>
         <mat-list-item *ngFor="let page of pages; let i = index">
-          <a class="header-link {{ page.icon }}" href="{{ page.link }}">
+          <a
+            [ngStyle]="{
+              color: active == page.active ? 'orange' : ''
+            }"
+            class="header-link {{ page.icon }}"
+            href="{{ page.link }}"
+          >
             <mat-icon style="margin: 0 5px">{{ page.icon }}</mat-icon>
             <span style="margin: 2px 0">{{ page.name }}</span>
           </a>

@@ -9,7 +9,9 @@ import { IUser } from '../models/user';
 import { UsersService } from '../services/users.service';
 import { IPagedList } from '../models/pagedList';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IUrlSegment } from '../models/urlSegment';
+import { ActiveLinkServiceService } from '../services/active-link-service.service';
 
 @Component({
   selector: 'app-users',
@@ -27,8 +29,16 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() public onPaginate: EventEmitter<any> = new EventEmitter();
 
-  constructor(private userService: UsersService, private router: Router) {}
+  constructor(
+    private userService: UsersService,
+    private router: Router,
+    private activeLinkService: ActiveLinkServiceService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
+    this.activatedRoute.url.subscribe(([url]: IUrlSegment[]) => {
+      this.activeLinkService.setActive(url.path);
+    });
     this.loading = true;
     this.userService.getAll(this.page).subscribe((resp: IPagedList<IUser>) => {
       this.loading = false;
