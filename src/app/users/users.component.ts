@@ -56,7 +56,6 @@ export class UsersComponent implements OnInit {
     });
     this.searchService.getSearch().subscribe({
       next: (search: string) => {
-        console.log('search', search);
         this.loading = true;
         this.search = search;
         this.searchUser(search);
