@@ -13,6 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IUrlSegment } from '../models/urlSegment';
 import { ActiveLinkServiceService } from '../services/active-link-service.service';
 import { SearchUserService } from '../services/search-user.service';
+import { CachingService } from '../services/caching.service';
+import { ICachedData } from '../models/cachedData';
 
 @Component({
   selector: 'app-users',
@@ -20,9 +22,10 @@ import { SearchUserService } from '../services/search-user.service';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  cachedData: any = null;
   users: IUser[] = [];
   filteredUsers: IUser[] = [];
-  page: number = 0;
+  page: number = 1;
   pageSize: number = 6;
   total: number = 0;
   totalPages: number = 0;
@@ -37,23 +40,58 @@ export class UsersComponent implements OnInit {
     private router: Router,
     private activeLinkService: ActiveLinkServiceService,
     private activatedRoute: ActivatedRoute,
-    private searchService: SearchUserService
+    private searchService: SearchUserService,
+    private cacheService: CachingService
   ) {}
   ngOnInit(): void {
     this.activatedRoute.url.subscribe(([url]: IUrlSegment[]) => {
       this.activeLinkService.setActive(url.path);
     });
     this.loading = true;
-    this.userService.getAll(this.page).subscribe((resp: IPagedList<IUser>) => {
-      this.loading = false;
-      if (resp.data?.length > 0) this.notFound = false;
-      this.users = resp.data;
-      this.filteredUsers = resp.data;
-      this.page = resp.page - 1;
-      this.pageSize = resp.per_page;
-      this.total = resp.total;
-      this.totalPages = resp.total_pages;
+    this.cacheService.cacheSource$.subscribe({
+      next: (cached) => console.log('cacheSource$', cached),
+      error: (error) => console.log(error),
     });
+    this.getData(this.page);
+    this.activateSearch();
+  }
+
+  getData(page: number) {
+    console.log('page', page);
+    this.loading = true;
+    const cachedData = this.cacheService.get(page.toString());
+    console.log('get cached', cachedData);
+    if (!!cachedData) {
+      this.users = cachedData?.data.data;
+      this.filteredUsers = cachedData?.data.data;
+      this.page = cachedData?.data.page - 1;
+      this.pageSize = cachedData?.data.per_page;
+      this.total = cachedData?.data.total;
+      this.totalPages = cachedData?.data.total_pages;
+      this.loading = false;
+    } else {
+      try {
+        this.userService.getAll(page).subscribe((resp: IPagedList<IUser>) => {
+          this.loading = false;
+          if (resp.data?.length > 0) this.notFound = false;
+          this.users = resp.data;
+          this.filteredUsers = resp.data;
+          this.page = resp.page - 1;
+          this.pageSize = resp.per_page;
+          this.total = resp.total;
+          this.totalPages = resp.total_pages;
+          const expiryDate = new Date().setMinutes(new Date().getMinutes() + 5);
+          this.cacheService.setData(
+            page.toString(),
+            resp,
+            new Date(expiryDate)
+          );
+        });
+      } catch (error) {}
+    }
+  }
+
+  activateSearch() {
     this.searchService.getSearch().subscribe({
       next: (search: string) => {
         this.loading = true;
@@ -66,17 +104,18 @@ export class UsersComponent implements OnInit {
 
   paginate(event: PageEvent) {
     this.loading = true;
-    this.userService
-      .getAll(event.pageIndex + 1)
-      .subscribe((resp: IPagedList<IUser>) => {
-        this.loading = false;
-        this.users = resp.data;
-        this.filteredUsers = resp.data;
-        this.page = resp.page - 1;
-        this.pageSize = resp.per_page;
-        this.total = resp.total;
-        this.totalPages = resp.total_pages;
-      });
+    this.getData(event.pageIndex + 1);
+    // this.userService
+    //   .getAll(event.pageIndex + 1)
+    //   .subscribe((resp: IPagedList<IUser>) => {
+    //     this.loading = false;
+    //     this.users = resp.data;
+    //     this.filteredUsers = resp.data;
+    //     this.page = resp.page - 1;
+    //     this.pageSize = resp.per_page;
+    //     this.total = resp.total;
+    //     this.totalPages = resp.total_pages;
+    //   });
   }
 
   goDetails(userId: number) {
@@ -93,5 +132,10 @@ export class UsersComponent implements OnInit {
     });
     this.filteredUsers = _resultUsers;
     this.loading = false;
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
   }
 }
