@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
     });
     this.loading = true;
     this.cacheService.cacheSource$.subscribe({
-      next: (cached) => console.log('cacheSource$', cached),
+      next: (cached) => console.log(),
       error: (error) => console.log(error),
     });
     this.getData(this.page);
@@ -57,11 +57,12 @@ export class UsersComponent implements OnInit {
   }
 
   getData(page: number) {
-    console.log('page', page);
+    this.users = [];
+    this.filteredUsers = [];
     this.loading = true;
     const cachedData = this.cacheService.get(page.toString());
-    console.log('get cached', cachedData);
     if (!!cachedData) {
+      if (cachedData?.data?.data?.length > 0) this.notFound = false;
       this.users = cachedData?.data.data;
       this.filteredUsers = cachedData?.data.data;
       this.page = cachedData?.data.page - 1;
@@ -72,7 +73,6 @@ export class UsersComponent implements OnInit {
     } else {
       try {
         this.userService.getAll(page).subscribe((resp: IPagedList<IUser>) => {
-          this.loading = false;
           if (resp.data?.length > 0) this.notFound = false;
           this.users = resp.data;
           this.filteredUsers = resp.data;
@@ -86,6 +86,7 @@ export class UsersComponent implements OnInit {
             resp,
             new Date(expiryDate)
           );
+          this.loading = false;
         });
       } catch (error) {}
     }
@@ -105,17 +106,6 @@ export class UsersComponent implements OnInit {
   paginate(event: PageEvent) {
     this.loading = true;
     this.getData(event.pageIndex + 1);
-    // this.userService
-    //   .getAll(event.pageIndex + 1)
-    //   .subscribe((resp: IPagedList<IUser>) => {
-    //     this.loading = false;
-    //     this.users = resp.data;
-    //     this.filteredUsers = resp.data;
-    //     this.page = resp.page - 1;
-    //     this.pageSize = resp.per_page;
-    //     this.total = resp.total;
-    //     this.totalPages = resp.total_pages;
-    //   });
   }
 
   goDetails(userId: number) {

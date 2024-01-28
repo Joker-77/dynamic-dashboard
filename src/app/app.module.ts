@@ -20,7 +20,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SingleUserComponent } from './single-user/single-user.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducer, metaReducers } from './store/app.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +50,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     LoadingBarHttpClientModule,
     MatProgressSpinnerModule,
+    StoreModule.forRoot(
+      {
+        activeLink: appReducer,
+      },
+      {}
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -12,22 +12,16 @@ export class CachingService {
   constructor() {}
 
   setData(key: string, _data: any, _expiry: any) {
-    if (this.cache.has(key)) {
-      throw new Error(
-        `Data already exists for key '${key}'. Use a different key or delete the existing one first.`
-      );
-    }
     let cachedData: ICachedData<IUser[]> = {
       data: _data,
       expiry: _expiry,
     };
     this.cache.set(key, cachedData);
     this.cacheSource$.next(this.cache.get(key));
-    // ttl: Time-to-Live expiration to cached data
+    // ttl: Time-to-Live expiration for cached data
     // remove data after expiration.
     let _today = new Date();
     let _ttl = _expiry.getTime() - _today.getTime();
-    console.log('hash', this.cache);
     setTimeout(() => {
       this.clear(key);
     }, _ttl);
